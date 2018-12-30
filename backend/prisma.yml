@@ -1,0 +1,8 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+datamodel: datamodel.prisma
+# secret: ${env:PRISMA_SECRET}
+
+# post-deploy hook - needed to get updated schema
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
