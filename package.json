@@ -12,7 +12,10 @@
 	"license": "ISC",
 	"dependencies": {
 		"next": "^7.0.2",
+		"nprogress": "^0.2.0",
+		"polished": "^2.3.1",
 		"react": "^16.7.0",
-		"react-dom": "^16.7.0"
+		"react-dom": "^16.7.0",
+		"styled-components": "^3.4.9"
 	}
 }
