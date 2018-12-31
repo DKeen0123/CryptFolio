@@ -1,0 +1,10 @@
+# the comment below is not commented out code. It is actually pulling in all the types from that file.
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+	createCryptoCurrency(name: String, amount: Float): CryptoCurrency!
+}
+
+type Query {
+	cryptoCurrencies: [CryptoCurrency]!
+}

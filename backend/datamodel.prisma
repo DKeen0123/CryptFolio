@@ -1,0 +1,12 @@
+type User {
+	id: ID! @unique
+	name: String!
+	email: String!
+}
+
+type CryptoCurrency {
+	id: ID! @unique
+	name: String!
+	amount: Float
+	# user: User!
+}
