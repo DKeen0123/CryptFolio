@@ -1,12 +1,10 @@
-type User {
-	id: ID!
-	name: String!
-}
+# the comment below is not commented out code. It is actually pulling in all the types from that file.
+# import * from './generated/prisma.graphql'
 
 type Mutation {
-	hi: String
+	createCryptoCurrency(name: String, amount: Float): CryptoCurrency!
 }
 
 type Query {
-	hi: String
+	cryptoCurrencies: [CryptoCurrency]!
 }
