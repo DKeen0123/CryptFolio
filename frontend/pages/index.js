@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default () => {
-	return <div>CryptFolio</div>;
-};
+const Home = () => <div>CryptFolio</div>;
+
+export default Home;
