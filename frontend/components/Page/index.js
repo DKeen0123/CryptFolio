@@ -52,7 +52,8 @@ injectGlobal`
 		height: 100%;
   }
   *, *:before, *:after {
-    box-sizing: inherit;
+		box-sizing: inherit;
+		margin: 0;
   }
   body {
 		padding: 0;
