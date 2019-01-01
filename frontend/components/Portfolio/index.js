@@ -30,9 +30,9 @@ class Portfolio extends Component {
 					{({ data, error, loading }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p> error: {error.message}</p>;
-						console.log(data);
 						return (
 							<CryptoCurrencyList>
+								{console.log(data.cryptoCurrencies)}
 								{data.cryptoCurrencies.map((crypto) => <CryptoCurrency cryptoCurrency={crypto} key={crypto.id} />)}
 							</CryptoCurrencyList>
 						);
