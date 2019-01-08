@@ -3,6 +3,7 @@
 
 type Mutation {
 	createCryptoCurrency(name: String, amount: Float): CryptoCurrency!
+	signup(email: String!, password: String!, name: String!): User!
 }
 
 type Query {
