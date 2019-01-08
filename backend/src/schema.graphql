@@ -1,9 +1,14 @@
 # the comment below is not commented out code. It is actually pulling in all the types from that file.
 # import * from './generated/prisma.graphql'
+type SuccessMessage {
+	message: String
+}
 
 type Mutation {
 	createCryptoCurrency(name: String, amount: Float): CryptoCurrency!
 	signup(email: String!, password: String!, name: String!): User!
+	signin(email: String!, password: String!): User!
+	signout: SuccessMessage
 }
 
 type Query {
