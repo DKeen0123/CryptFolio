@@ -8,4 +8,5 @@ type Mutation {
 
 type Query {
 	cryptoCurrencies: [CryptoCurrency]!
+	me: User
 }
