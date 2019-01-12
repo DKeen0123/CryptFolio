@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from '../User';
 import Form, { FormButton } from '../Form';
 import Error from '../Error';
+import { SuccessMessage } from './style';
 
-const SIGNIN_MUTATION = gql`
-	mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-		signin(email: $email, password: $password) {
-			id
-			email
-			name
+const REQUEST_RESET_MUTATION = gql`
+	mutation REQUEST_RESET_MUTATION($email: String!) {
+		requestReset(email: $email) {
+			message
 		}
 	}
 `;
 
-class Signin extends Component {
+class RequestReset extends Component {
 	state = {
-		email: '',
-		password: ''
+		email: ''
 	};
 
 	saveToState = (e) => {
@@ -27,24 +24,26 @@ class Signin extends Component {
 
 	isStateEmpty = () => {
 		const { email, password } = this.state;
-		return email.length === 0 || password.length === 0 ? true : false;
+		return email.length === 0 ? true : false;
 	};
 	render() {
 		return (
-			<Mutation mutation={SIGNIN_MUTATION} variables={this.state} refetchQueries={[ { query: CURRENT_USER_QUERY } ]}>
-				{(signin, { error, loading }) => (
+			<Mutation mutation={REQUEST_RESET_MUTATION} variables={this.state}>
+				{(reset, { error, loading, called }) => (
 					<Form
 						method="post"
 						onSubmit={async (e) => {
 							e.preventDefault();
-							const res = await signin();
-							console.log(res);
-							this.setState({ email: '', password: '' });
+							await reset();
+							this.setState({ email: '' });
 						}}
 					>
 						<fieldset disabled={loading} aria-busy={loading}>
-							<h2>Sign in</h2>
+							<h2>Request a password reset</h2>
 							<Error error={error} />
+							{!error &&
+							!loading &&
+							called && <SuccessMessage> Success! Check your email for a reset link.</SuccessMessage>}
 							<label htmlFor="email">
 								Email
 								<input
@@ -55,19 +54,9 @@ class Signin extends Component {
 									onChange={this.saveToState}
 								/>
 							</label>
-							<label htmlFor="password">
-								Password
-								<input
-									type="password"
-									name="password"
-									placeholder="enter your password"
-									value={this.state.password}
-									onChange={this.saveToState}
-								/>
-							</label>
 
 							<FormButton disabled={this.isStateEmpty()} type="submit">
-								Sign in
+								Request reset
 							</FormButton>
 						</fieldset>
 					</Form>
@@ -77,4 +66,4 @@ class Signin extends Component {
 	}
 }
 
-export default Signin;
+export default RequestReset;
