@@ -21,25 +21,30 @@ const CryptoCurrencyList = styled.div`
 	max-width: ${(props) => props.theme.maxWidth};
 `;
 
-class Portfolio extends Component {
-	render() {
-		return (
-			<div>
-				<p>Portfolio</p>
-				<Query query={ALL_USER_CRYPTO_CURRENCIES_QUERY}>
-					{({ data, error, loading }) => {
-						if (loading) return <p>Loading...</p>;
-						if (error) return <p> error: {error.message}</p>;
-						return (
-							<CryptoCurrencyList>
-								{data.cryptoCurrencies.map((crypto) => <CryptoCurrency cryptoCurrency={crypto} key={crypto.id} />)}
-							</CryptoCurrencyList>
-						);
-					}}
-				</Query>
-			</div>
-		);
-	}
-}
+const Portfolio = (props) => (
+	<div>
+		<p>Portfolio</p>
+		<h3>Select a CryptoCurrency:</h3>
+		<select name="cryptos">
+			{console.log(props)}
+			{props.data.map((crypto) => (
+				<option value={crypto.name} key={crypto.name}>
+					{crypto.name}
+				</option>
+			))}
+		</select>
+		{/* <Query query={ALL_USER_CRYPTO_CURRENCIES_QUERY}>
+			{({ data, error, loading }) => {
+				if (loading) return <p>Loading...</p>;
+				if (error) return <p> error: {error.message}</p>;
+				return (
+					<CryptoCurrencyList>
+						{data.cryptoCurrencies.map((crypto) => <CryptoCurrency cryptoCurrency={crypto} key={crypto.id} />)}
+					</CryptoCurrencyList>
+				);
+			}}
+		</Query> */}
+	</div>
+);
 
 export default Portfolio;
