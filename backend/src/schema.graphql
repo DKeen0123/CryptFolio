@@ -5,7 +5,7 @@ type SuccessMessage {
 }
 
 type Mutation {
-	createCryptoCurrency(name: String, amount: Float): CryptoCurrency!
+	createCryptoCurrency(name: String!, amount: Float!, totalPaidInCents: Float!): CryptoCurrency!
 	signup(email: String!, password: String!, name: String!): User!
 	signin(email: String!, password: String!): User!
 	signout: SuccessMessage

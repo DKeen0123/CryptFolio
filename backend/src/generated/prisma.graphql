@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/daniel-keen-6b7ff6/cryptfolio/dev
-# timestamp: Tue Jan 08 2019 13:39:20 GMT+0000 (GMT)
+# timestamp: Sun Jan 13 2019 21:03:37 GMT+0000 (GMT)
 
 type AggregateCryptoCurrency {
   count: Int!
@@ -18,6 +18,8 @@ type CryptoCurrency implements Node {
   id: ID!
   name: String!
   amount: Float
+  totalPaidInCents: Float
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -33,6 +35,8 @@ type CryptoCurrencyConnection {
 input CryptoCurrencyCreateInput {
   name: String!
   amount: Float
+  totalPaidInCents: Float
+  user: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -51,6 +55,8 @@ enum CryptoCurrencyOrderByInput {
   name_DESC
   amount_ASC
   amount_DESC
+  totalPaidInCents_ASC
+  totalPaidInCents_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -61,6 +67,7 @@ type CryptoCurrencyPreviousValues {
   id: ID!
   name: String!
   amount: Float
+  totalPaidInCents: Float
 }
 
 type CryptoCurrencySubscriptionPayload {
@@ -105,11 +112,14 @@ input CryptoCurrencySubscriptionWhereInput {
 input CryptoCurrencyUpdateInput {
   name: String
   amount: Float
+  totalPaidInCents: Float
+  user: UserUpdateOneRequiredInput
 }
 
 input CryptoCurrencyUpdateManyMutationInput {
   name: String
   amount: Float
+  totalPaidInCents: Float
 }
 
 input CryptoCurrencyWhereInput {
@@ -223,6 +233,29 @@ input CryptoCurrencyWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
+  totalPaidInCents: Float
+
+  """All values that are not equal to given value."""
+  totalPaidInCents_not: Float
+
+  """All values that are contained in given list."""
+  totalPaidInCents_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalPaidInCents_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalPaidInCents_lt: Float
+
+  """All values less than or equal the given value."""
+  totalPaidInCents_lte: Float
+
+  """All values greater than the given value."""
+  totalPaidInCents_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalPaidInCents_gte: Float
+  user: UserWhereInput
 }
 
 input CryptoCurrencyWhereUniqueInput {
@@ -236,18 +269,18 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createCryptoCurrency(data: CryptoCurrencyCreateInput!): CryptoCurrency!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  createUser(data: UserCreateInput!): User!
   updateCryptoCurrency(data: CryptoCurrencyUpdateInput!, where: CryptoCurrencyWhereUniqueInput!): CryptoCurrency
-  deleteUser(where: UserWhereUniqueInput!): User
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteCryptoCurrency(where: CryptoCurrencyWhereUniqueInput!): CryptoCurrency
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertCryptoCurrency(where: CryptoCurrencyWhereUniqueInput!, create: CryptoCurrencyCreateInput!, update: CryptoCurrencyUpdateInput!): CryptoCurrency!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyCryptoCurrencies(data: CryptoCurrencyUpdateManyMutationInput!, where: CryptoCurrencyWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyCryptoCurrencies(where: CryptoCurrencyWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -287,12 +320,12 @@ enum Permission {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   cryptoCurrencies(where: CryptoCurrencyWhereInput, orderBy: CryptoCurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CryptoCurrency]!
-  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   cryptoCurrency(where: CryptoCurrencyWhereUniqueInput!): CryptoCurrency
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  user(where: UserWhereUniqueInput!): User
   cryptoCurrenciesConnection(where: CryptoCurrencyWhereInput, orderBy: CryptoCurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CryptoCurrencyConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -302,8 +335,8 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   cryptoCurrency(where: CryptoCurrencySubscriptionWhereInput): CryptoCurrencySubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User implements Node {
@@ -333,6 +366,11 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
@@ -416,6 +454,15 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -434,8 +481,20 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

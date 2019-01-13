@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { rem } from 'polished';
 
-const CryptoTicker = ({ name, price, marketCap, image }) => (
-	<TickerWrapper>
+const CryptoTicker = ({ name, price, marketCap, image, children }) => (
+	<Wrapper>
 		<TickerHeading>
 			<TickerTitle>{name}</TickerTitle>
 			<TickerImage src={image} />
@@ -16,10 +16,11 @@ const CryptoTicker = ({ name, price, marketCap, image }) => (
 			<TickerContentTitle>Market&nbsp;Cap:</TickerContentTitle>
 			<p>${marketCap}</p>
 		</TickerMarketCap>
-	</TickerWrapper>
+		{children}
+	</Wrapper>
 );
 
-const TickerWrapper = styled.div`
+const Wrapper = styled.div`
 	border: black 1px solid;
 	padding: ${(rem('8px'), rem('16px'))};
 	text-align: center;
@@ -50,6 +51,12 @@ const TickerPrice = styled.div`
 const TickerMarketCap = styled.div`
 	display: flex;
 	justify-content: center;
+`;
+
+export const TickerWrapper = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	grid-gap: ${rem('32px')};
 `;
 
 // const formatter = (currency) => {

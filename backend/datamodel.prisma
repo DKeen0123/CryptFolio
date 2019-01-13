@@ -21,5 +21,6 @@ type CryptoCurrency {
 	id: ID! @unique
 	name: String!
 	amount: Float
+	totalPaidInCents: Float
 	user: User!
 }

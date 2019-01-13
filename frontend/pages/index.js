@@ -3,15 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { rem } from 'polished';
 import { coinGeckoApi } from '../config';
-import CryptoTicker from '../components/CryptoTicker';
+import CryptoTicker, { TickerWrapper } from '../components/CryptoTicker';
 
 const HomeWrapper = styled.div`text-align: center;`;
-
-const TickerWrapper = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-	grid-gap: ${rem('32px')};
-`;
 
 const MainHeading = styled.h2`margin-bottom: ${rem('16px')};`;
 

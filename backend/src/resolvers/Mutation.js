@@ -6,11 +6,19 @@ const { transport, createStyledEmail } = require('../mail');
 
 const Mutations = {
 	async createCryptoCurrency(parent, args, ctx, info) {
-		// TODO: Check if they're logged in
+		if (!ctx.request.userId) {
+			throw new Error('you must be logged in to do that');
+		}
 
 		const cryptoCurrency = await ctx.db.mutation.createCryptoCurrency(
 			{
 				data: {
+					//how to create relationship between crypto and a user.
+					user: {
+						connect: {
+							id: ctx.request.userId
+						}
+					},
 					...args
 				}
 			},
