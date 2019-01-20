@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from '../User';
+import { ALL_USER_CRYPTO_CURRENCIES_QUERY } from '../Portfolio';
 import Form, { FormButton } from '../Form';
 import Error from '../Error';
 
@@ -38,6 +38,7 @@ class AddCrypto extends Component {
 					amount: this.state.amount * 100,
 					totalPaidInCents: this.state.amountPaidFor * 100
 				}}
+				refetchQueries={[ { query: ALL_USER_CRYPTO_CURRENCIES_QUERY } ]}
 			>
 				{(createCryptoCurrency, { error, loading }) => (
 					<Form
@@ -45,7 +46,6 @@ class AddCrypto extends Component {
 						onSubmit={async (e) => {
 							e.preventDefault();
 							const res = await createCryptoCurrency();
-							console.log(res);
 							this.setState({ amount: 0, amountPaidFor: 0 });
 						}}
 					>

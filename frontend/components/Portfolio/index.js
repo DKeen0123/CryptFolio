@@ -56,7 +56,7 @@ class Portfolio extends Component {
 						</SignInPrompt>
 					</CryptoTicker>
 				</TickerWrapper>
-				{/* <Query query={ALL_USER_CRYPTO_CURRENCIES_QUERY}>
+				<Query query={ALL_USER_CRYPTO_CURRENCIES_QUERY}>
 					{({ data, error, loading }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p> error: {error.message}</p>;
@@ -66,10 +66,12 @@ class Portfolio extends Component {
 							</CryptoCurrencyList>
 						);
 					}}
-				</Query> */}
+				</Query>
 			</div>
 		);
 	}
 }
 
 export default Portfolio;
+
+export { ALL_USER_CRYPTO_CURRENCIES_QUERY };
