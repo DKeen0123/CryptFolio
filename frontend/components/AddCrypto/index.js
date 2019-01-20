@@ -35,7 +35,7 @@ class AddCrypto extends Component {
 				mutation={ADD_CRYPTO_CURRENCY_MUTATION}
 				variables={{
 					name: this.props.name,
-					amount: this.state.amount * 100,
+					amount: this.state.amount,
 					totalPaidInCents: this.state.amountPaidFor * 100
 				}}
 				refetchQueries={[ { query: ALL_USER_CRYPTO_CURRENCIES_QUERY } ]}
