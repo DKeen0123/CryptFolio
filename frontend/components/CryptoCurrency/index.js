@@ -22,6 +22,7 @@ export default class CryptoCurrency extends Component {
 					</Link>
 				</h3>
 				<h5>amount owned: {cryptoCurrency.amount}</h5>
+				<h5> amount paid: ${(cryptoCurrency.totalPaidInCents / 100).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</h5>
 			</div>
 		);
 	}

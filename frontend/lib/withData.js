@@ -1,6 +1,7 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { endpoint } from '../config';
+import { ALL_USER_CRYPTO_CURRENCIES_QUERY } from '../components/Portfolio';
 
 function createClient({ headers }) {
 	return new ApolloClient({
@@ -14,9 +15,27 @@ function createClient({ headers }) {
 			});
 		},
 		clientState: {
-			addTypename: false,
-			resolvers: {},
-			defaults: {}
+			resolvers: {
+				Mutation: {
+					toggleAlreadyOwned(_, variables, { cache }) {
+						let alreadyOwned = [];
+						const cryptosOwned = cache.readQuery({
+							query: ALL_USER_CRYPTO_CURRENCIES_QUERY
+						});
+						cryptosOwned.cryptoCurrencies.map((crypto) => {
+							return alreadyOwned.push(crypto.name);
+						});
+						const data = {
+							data: { alreadyOwned: alreadyOwned }
+						};
+						cache.writeData(data);
+						return data;
+					}
+				}
+			},
+			defaults: {
+				alreadyOwned: []
+			}
 		}
 	});
 }
