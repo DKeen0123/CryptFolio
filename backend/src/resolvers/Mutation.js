@@ -27,6 +27,19 @@ const Mutations = {
 
 		return cryptoCurrency;
 	},
+	updateCryptoCurrency(parent, args, ctx, info) {
+		const updates = { ...args };
+		delete updates.id;
+		return ctx.db.mutation.updateCryptoCurrency(
+			{
+				data: updates,
+				where: {
+					id: args.id
+				}
+			},
+			info
+		);
+	},
 	async signup(parent, args, ctx, info) {
 		args.email = args.email.toLowerCase();
 		// hash password

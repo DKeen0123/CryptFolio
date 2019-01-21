@@ -6,6 +6,7 @@ type SuccessMessage {
 
 type Mutation {
 	createCryptoCurrency(name: String!, amount: Float!, totalPaidInCents: Float!): CryptoCurrency!
+	updateCryptoCurrency(id: ID!, amount: Float, totalPaidInCents: Float): CryptoCurrency!
 	signup(email: String!, password: String!, name: String!): User!
 	signin(email: String!, password: String!): User!
 	signout: SuccessMessage
@@ -15,6 +16,8 @@ type Mutation {
 
 type Query {
 	cryptoCurrencies: [CryptoCurrency]!
+	# Same as in prisma.graphql
+	cryptoCurrency(where: CryptoCurrencyWhereUniqueInput!): CryptoCurrency
 	me: User
 }
 

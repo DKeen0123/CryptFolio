@@ -48,7 +48,6 @@ class Portfolio extends Component {
 
 					return (
 						<Fragment>
-							{console.log(data)}
 							<p>Portfolio</p>
 							<h3>Select a CryptoCurrency:</h3>
 							<select
