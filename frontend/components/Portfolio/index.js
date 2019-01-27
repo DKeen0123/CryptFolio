@@ -75,8 +75,15 @@ class Portfolio extends Component {
 								</CryptoTicker>
 							</TickerWrapper>
 							<CryptoCurrencyList>
-								{data.cryptoCurrencies.map((crypto) => {
-									return <CryptoCurrency cryptoCurrency={crypto} key={crypto.id} />;
+								{data.cryptoCurrencies.map((ownedCrypto) => {
+									const currentCryptoData = this.props.data.find((crypto) => crypto.name === ownedCrypto.name);
+									return (
+										<CryptoCurrency
+											cryptoCurrency={ownedCrypto}
+											key={ownedCrypto.id}
+											currentPrice={currentCryptoData.current_price}
+										/>
+									);
 								})}
 							</CryptoCurrencyList>
 						</Fragment>
