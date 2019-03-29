@@ -5,7 +5,9 @@ import { ALL_USER_CRYPTO_CURRENCIES_QUERY } from '../components/Portfolio';
 
 function createClient({ headers }) {
 	return new ApolloClient({
-		uri: process.env.NODE_ENV === 'production' ? `/.netlify/functions/get-backend-endpoint` : endpoint,
+		// need to fetch the endpoint from the lambda first, then return output here
+		// for now, i am directly exposing the backend prod link. Maybe this is ok though?
+		uri: process.env.NODE_ENV === 'production' ? `https://cryptfolio-yoga-prod.herokuapp.com` : endpoint,
 		request: (operation) => {
 			operation.setContext({
 				fetchOptions: {
