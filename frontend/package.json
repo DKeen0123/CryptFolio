@@ -7,9 +7,10 @@
 		"dev": "next -p 7777",
 		"build": "next build",
 		"start": "next start",
-		"export": "npm run build && next export; npm run build:lambda",
+		"export": "npm run build && next export",
 		"start:lambda": "netlify-lambda serve functions",
-		"build:lambda": "netlify-lambda build functions"
+		"build:lambda": "netlify-lambda build functions",
+		"netlify": "npm run export; npm run build:lambda"
 	},
 	"author": "",
 	"license": "ISC",
