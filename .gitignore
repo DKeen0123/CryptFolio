@@ -1,5 +1,5 @@
 frontend/.next
-frontend/keys.js
+frontend/lambda
 frontend/node_modules
 backend/node_modules
 backend/variables.env
