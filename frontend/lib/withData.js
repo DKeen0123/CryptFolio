@@ -5,7 +5,7 @@ import { ALL_USER_CRYPTO_CURRENCIES_QUERY } from '../components/Portfolio';
 
 function createClient({ headers }) {
 	return new ApolloClient({
-		uri: process.env.NODE_ENV === 'production' ? prodEndPoint : endpoint,
+		uri: process.env.NODE_ENV === 'production' ? `/.netlify/functions/get-backend-endpoint` : endpoint,
 		request: (operation) => {
 			operation.setContext({
 				fetchOptions: {
