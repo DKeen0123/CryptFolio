@@ -14,11 +14,11 @@ I was also in need of a decent cryptocurrency portfolio tracker, as I don't real
 ## Things still to do
 
 - [x] ~Deploy to production (in progress, working out some kinks)~
-- [] Further styling of every page
-- [] Addition of colour to the app
-- [] nicer form handling/validation
-- [] TESTING :grimacing: ( I rushed through without testing, as it was a small app, and for a large part I was using tutorials to get through it which did not have testing. However, I see testing as an integral part of a good application, and this is the next thing on the agenda once I have it working in production)
-- [] Animation
+- [ ] Further styling of every page
+- [ ] Addition of colour to the app
+- [ ] nicer form handling/validation
+- [ ] TESTING :grimacing: ( I rushed through without testing, as it was a small app, and for a large part I was using tutorials to get through it which did not have testing. However, I see testing as an integral part of a good application, and this is the next thing on the agenda once I have it working in production)
+- [ ] Animation
 
 ## Using the application
 
